@@ -25,7 +25,7 @@ export default class CreateTransactionMigration1593478396361
           },
           {
             name: 'value',
-            type: 'number',
+            type: 'numeric',
           },
           {
             name: 'type',
@@ -36,16 +36,26 @@ export default class CreateTransactionMigration1593478396361
             type: 'uuid',
             isNullable: true,
           },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
         ],
       }),
     );
     await queryRunner.createForeignKey(
-      'categories',
+      'transactions',
       new TableForeignKey({
         name: 'CategoryTransaction',
         columnNames: ['category_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'transactions',
+        referencedTableName: 'categories',
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
       }),
